@@ -52,7 +52,7 @@ function TakeOutVehicle(vehicleInfo)
     QBCore.Functions.SpawnVehicle(vehicleInfo, function(veh)
         SetVehicleNumberPlateText(veh, "AMBU"..tostring(math.random(1000, 9999)))
         SetEntityHeading(veh, coords.w)
-        exports['LegacyFuel']:SetFuel(veh, 100.0)
+        exports['cc-fuel']:SetFuel(veh, 100.0)
         TaskWarpPedIntoVehicle(PlayerPedId(), veh, -1)
         TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
         SetVehicleEngineOn(veh, true, true)
@@ -178,7 +178,7 @@ RegisterNetEvent('hospital:client:CheckStatus', function()
 end)
 
 RegisterNetEvent('hospital:client:RevivePlayer', function()
-    QBCore.Functions.TriggerCallback('QBCore:HasItem', function(hasItem)
+    QBCore.Functions.TriggerCallback('hospital:server:HasFirstAid', function(hasItem)
         if hasItem then
             local player, distance = GetClosestPlayer()
             if player ~= -1 and distance < 5.0 then
@@ -213,7 +213,7 @@ RegisterNetEvent('hospital:client:RevivePlayer', function()
 end)
 
 RegisterNetEvent('hospital:client:TreatWounds', function()
-    QBCore.Functions.TriggerCallback('QBCore:HasItem', function(hasItem)
+    QBCore.Functions.TriggerCallback('hospital:server:HasBandage', function(hasItem)
         if hasItem then
             local player, distance = GetClosestPlayer()
             if player ~= -1 and distance < 5.0 then
@@ -357,7 +357,7 @@ CreateThread(function()
                                             SetVehicleNumberPlateText(veh, "LIFE"..tostring(math.random(1000, 9999)))
                                             SetEntityHeading(veh, coords.w)
                                             SetVehicleLivery(veh, 1) -- Ambulance Livery
-                                            exports['LegacyFuel']:SetFuel(veh, 100.0)
+                                            exports['cc-fuel']:SetFuel(veh, 100.0)
                                             closeMenuFull()
                                             TaskWarpPedIntoVehicle(ped, veh, -1)
                                             TriggerEvent("vehiclekeys:client:SetOwner", QBCore.Functions.GetPlate(veh))
